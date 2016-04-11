@@ -8,7 +8,53 @@
 
 import Foundation
 import UIKit
-struct Tiles {
+enum TilesEnum:String {
+    case _TOM="◻︎",_90DEG="◥",_180DEG="◢",_270DEG="◣",_360DEG="◤",_FULL="█"
+    func next()
+    {
+        print("\(self.rawValue)")
+    }
+}
+
+class Tiles {
+    static let tilesAsText=["◻︎","◥","◢","◣","◤","█"]
+    static let tileNames=["_TOM","_90DEG","_180DEG","_270DEG","_360DEG","_FULL"]
+    typealias TileType=(String,String)
+    static var allTiles:[TileType]{
+        var list:[TileType]=[]
+        for i in 0..<tilesAsText.count
+        {
+            list.append((tilesAsText[i],tileNames[i]))
+        }
+        return list
+    }
+    var nr:Int=0
+    var text:String
+    var name:String
+    
+    init(nr:Int)
+    {
+        assert(nr<Tiles.tilesAsText.count)
+        self.nr=nr
+        text=Tiles.tilesAsText[nr]
+        name=Tiles.tilesAsText[nr]
+    }
+    
+    func next() -> Tiles
+    {
+        nr+=1
+        if nr==Tiles.allTiles.count
+        {
+            let newTile=Tiles(nr: 0)
+            return newTile
+        }
+        let newTile=Tiles(nr: nr)
+        return newTile
+    }
+}
+
+/*-------------------------------------------*/
+struct TilesOld {
     let tileValues=["◻︎","◥","◢","◣","◤","█"]
     typealias TileValue = (String,String,CGPoint)
     var bitar:[TileValue]=[("hej","svej",CGPointZero),("blö","bla",CGPointZero)]
@@ -23,11 +69,11 @@ struct Tiles {
     }
     func filterTest()
     {
-        let filtered=tileValues.filter{$0=="█"}         // Returnerar [5]
-        let matches=filtered.count                      // Returnerar 1
-        let filledIndex=tileValues.indexOf("█")         // Returnerar 5
-        let nonEmptyIndex=tileValues.indexOf({$0 != "◻︎"})// Returnerar 1
-        var mylist=[[1,"hej",14],[2,"svej",15]]
+        //let filtered=tileValues.filter{$0=="█"}         // Returnerar [5]
+        //let matches=filtered.count                      // Returnerar 1
+        //let filledIndex=tileValues.indexOf("█")         // Returnerar 5
+        //let nonEmptyIndex=tileValues.indexOf({$0 != "◻︎"})// Returnerar 1
+        //var mylist=[[1,"hej",14],[2,"svej",15]]
     }
     let text:Text
     let drawable:Drawable

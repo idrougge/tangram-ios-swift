@@ -24,21 +24,6 @@ class ViewController: UIViewController {
         layer.backgroundColor=UIColor.brownColor().CGColor
         
         view.layer.addSublayer(layer)
-        //let imageWidth=Int(viewSize!.width)
-        //let imageHeight=Int(viewSize!.height)
-        let imageWidth=200
-        let imageHeight=100
-        let imageBitsPerComponent=4
-        let imageBitsPerPixel=32
-        var pixelData=[UInt8](count: imageWidth*imageHeight*imageBitsPerComponent, repeatedValue: 128)
-        let provider=CGDataProviderCreateWithCFData(NSData(bytes: &pixelData, length: pixelData.count))
-        let imageBytesPerRow=Int(imageWidth)*imageBitsPerPixel
-        //let urk:CGContextRef=CGBitmapContextCreate(nil, width: Int(imageWidth), height: Int(imageHeight), bitsPerComponent: imageBitsPerComponent, bytesPerRow: imageBytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.None)
-        let cgimage=CGImageCreate(imageWidth, imageHeight, imageBitsPerComponent, imageBitsPerPixel, imageBytesPerRow, CGColorSpaceCreateDeviceRGB(), CGBitmapInfo.ByteOrderDefault, provider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
-        //let image:UIImage=UIImage(CGImage: CGImageCreate(viewSize?.width, viewSize?.height, CGImageGetBitsPerComponent(CGColorSpaceCreateDeviceRGB()), CGImageGetBitsPerPixel(CGColorSpaceCreateDeviceRGB()), <#T##bytesPerRow: Int##Int#>, space:CGColorSpaceCreateDeviceRGB(), <#T##bitmapInfo: CGBitmapInfo##CGBitmapInfo#>, <#T##provider: CGDataProvider?##CGDataProvider?#>, <#T##decode: UnsafePointer<CGFloat>##UnsafePointer<CGFloat>#>, <#T##shouldInterpolate: Bool##Bool#>, <#T##intent: CGColorRenderingIntent##CGColorRenderingIntent#>))
-        let image:UIImage=UIImage(CGImage: cgimage!)
-        print("Bildens storlek: \(image.size)")
-        UIGraphicsBeginImageContext(image.size)
         
         let size:CGSize=CGSizeMake(200, 100)
         
@@ -65,6 +50,20 @@ class ViewController: UIViewController {
             view.addSubview(button)
         }
         
+    }
+    
+    func buildGraphicsAssets(size: CGRect, nrOfTiles: Int) -> [UIImage]
+    {
+        var images:[UIImage]=[]
+        let tileWidth=size.size.width/CGFloat(nrOfTiles)     // Fan så fult -- ska det vara så här?
+        let tileSize=CGRect(origin: CGPointZero, size: CGSize(width: tileWidth, height: tileWidth))
+        images.append(drawRectFilled(false, size: tileSize))
+        for i in 1...4
+        {
+            images.append(drawTriangleWithAngle(i*90, size: tileSize))
+        }
+        images.append(drawRectFilled(true, size: tileSize))
+        return images
     }
     
     func drawTriangleWithAngle(angle:Int, size:CGRect) -> UIImage
