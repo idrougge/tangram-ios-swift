@@ -9,6 +9,8 @@
 import Foundation
 
 class Tangram {
+    let playfield:PlayField
+    
     init()
     {
         let puzzle=[4,5,3,
@@ -17,6 +19,7 @@ class Tangram {
         let solution=[2,5,3,
                       5,5,5,
                       1,5,4]
-        let pf=PlayField(solution: solution, puzzle: puzzle)
+        playfield=PlayField(solution: solution, puzzle: puzzle)
+        
     }
 }
