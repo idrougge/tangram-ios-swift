@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     var screenSize:CGRect?
     var viewSize:CGRect?
+    var images:[UIImage]=[]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,15 +36,18 @@ class ViewController: UIViewController {
         CGContextMoveToPoint(context, 0.0, 0.0)             // Flytta "pennan" till övre vänstra hörnet
         CGContextAddLineToPoint(context, 100, 100)          // Dra ett streck till koordinat 100,100
         CGContextStrokePath(context)                        // Rita slutligen strecket i kontexten
-        let images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
+        //let images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
+        images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
         //let bild=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         let puzzle=[4,5,3,
-            5,5,5,
-            1,5,4]
+                    5,5,5,
+                    1,5,4]
         var buttonSize=CGRectMake(CGPointZero.x, CGPointZero.y, viewSize!.width/3, viewSize!.width/3)
         for i in 0..<puzzle.count {
-            let button:UIButton=UIButton()
+            //let button:UIButton=UIButton()
+            let button:TileButton
+            button=TileButton(frame: buttonSize, tile: Tiles(nr: 4))
             button.setTitle("Hej", forState: .Normal)
             button.setTitle("Nej", forState: UIControlState.Highlighted)
             //button.setImage(drawTriangleWithAngle(i*90, size: CGRect(origin: CGPoint(x:10,y:10), size: CGSize(width: 200, height: 200))), forState: UIControlState.Normal)
@@ -61,8 +65,21 @@ class ViewController: UIViewController {
                 buttonSize=CGRectMake(viewSize!.origin.x, buttonSize.origin.y+buttonSize.width,
                     buttonSize.width, buttonSize.width)
             }
+            button.addTarget(self, action: "clickTile:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
         }
         
+    }
+    
+    func clickTile()
+    {
+        print("Du klickade på en knapp")
+    }
+    func clickTile(sender: TileButton!)
+    {
+        print("Du klickade på en knapp med ruta \(sender.tile.text)")
+        sender.tile=sender.tile.next()
+        print("Rutan blev \(sender.tile.text)")
+        sender.setImage(images[sender.tile.nr],forState: .Normal)
     }
     
     func buildGraphicsAssets(size: CGRect, nrOfTiles: Int) -> [UIImage]
