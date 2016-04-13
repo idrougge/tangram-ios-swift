@@ -37,7 +37,7 @@
                                 <rect key="frame" x="277" y="387" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="amm-lP-Tnz" kind="show" id="F5Y-J1-vbe"/>
+                                    <segue destination="amm-lP-Tnz" kind="show" identifier="ShowGame" id="F5Y-J1-vbe"/>
                                 </connections>
                             </button>
                         </subviews>
