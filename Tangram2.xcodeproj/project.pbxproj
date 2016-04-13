@@ -16,6 +16,7 @@
 		DC3793DB1CBBDCAD0088EF5F /* Tangram.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */; };
 		DC3793DD1CBBDD4F0088EF5F /* PlayField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */; };
 		DCD050E91CBC11FE003A5837 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050E81CBC11FE003A5837 /* TileButton.swift */; };
+		DCD050EB1CBE5F8C003A5837 /* TangramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tangram.swift; sourceTree = "<group>"; };
 		DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayField.swift; sourceTree = "<group>"; };
 		DCD050E81CBC11FE003A5837 /* TileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
+		DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangramViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				DC3793D81CB7DBA90088EF5F /* Tiles.swift */,
 				DC3793C61CB7DB980088EF5F /* AppDelegate.swift */,
 				DC3793C81CB7DB980088EF5F /* ViewController.swift */,
+				DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */,
 				DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */,
 				DCD050E81CBC11FE003A5837 /* TileButton.swift */,
 				DC3793CA1CB7DB980088EF5F /* Main.storyboard */,
@@ -152,6 +155,7 @@
 				DC3793C71CB7DB980088EF5F /* AppDelegate.swift in Sources */,
 				DC3793DB1CBBDCAD0088EF5F /* Tangram.swift in Sources */,
 				DCD050E91CBC11FE003A5837 /* TileButton.swift in Sources */,
+				DCD050EB1CBE5F8C003A5837 /* TangramViewController.swift in Sources */,
 				DC3793D91CB7DBA90088EF5F /* Tiles.swift in Sources */,
 				DC3793DD1CBBDD4F0088EF5F /* PlayField.swift in Sources */,
 			);
