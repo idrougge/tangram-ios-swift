@@ -33,94 +33,25 @@ class TangramViewController: UIViewController {
         let layer:CALayer=CALayer()
         layer.frame=viewSize!
         layer.backgroundColor=UIColor.brownColor().CGColor
-        
-        //view.layer.addSublayer(layer)
-        //view.layer.insertSublayer(layer, above: view.layer)
-        
-        images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
-        //let puzzleController=PuzzleViewController()
-        //addChildViewController(puzzleController)
+               
     }
     
-    func clickTile()
-    {
-        print("Du klickade på en knapp")
-    }
-    func clickTile(sender: TileButton!)
-    {
-        print("Du klickade på en knapp med ruta \(sender.tile.text)")
-        sender.tile=sender.tile.next()
-        print("Rutan blev \(sender.tile.text)")
-        sender.setImage(images[sender.tile.nr],forState: .Normal)
-    }
-    
-    func buildGraphicsAssets(size: CGRect, nrOfTiles: Int) -> [UIImage]
-    {
-        var images:[UIImage]=[]
-        let tileWidth=size.size.width/CGFloat(nrOfTiles)     // Fan så fult -- ska det vara så här?
-        let tileSize=CGRect(origin: CGPointZero, size: CGSize(width: tileWidth, height: tileWidth))
-        images.append(drawRectFilled(false, size: tileSize))
-        for i in 1...4
-        {
-            images.append(drawTriangleWithAngle(i*90, size: tileSize))
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("\(className).prepareForSegue(\(segue.identifier))")
+        switch segue.identifier! {
+        case "ShowSolution": return
+        case "SolutionEmbed":
+            let vc=segue.destinationViewController as! SolutionViewController
+            vc.puzzle=[4,4,4,
+                       5,5,5,
+                       1,5,4]
+        case "PuzzleEmbed":
+            let vc=segue.destinationViewController as! PuzzleViewController
+            vc.puzzle=[4,5,2,
+                5,5,5,
+                1,5,4]
+        default: print("Okänd segue: \(segue.identifier)")
         }
-        images.append(drawRectFilled(true, size: tileSize))
-        return images
-    }
-    
-    func drawTriangleWithAngle(angle:Int, size:CGRect) -> UIImage
-    {
-        UIGraphicsBeginImageContext(size.size)
-        let context=UIGraphicsGetCurrentContext()
-        //let l=size.width
-        //let r=size.width
-        let point:CGPoint
-        switch(angle)
-        {
-        case 90:
-            point=CGPoint(x: size.width,y: size.origin.y)
-        case 180:
-            point=CGPoint(x: size.width,y: size.height)
-        case 270:
-            point=CGPoint(x: size.origin.x, y: size.height)
-        case 360:
-            point=CGPoint(x: size.origin.x, y: size.origin.y)
-        default: return UIGraphicsGetImageFromCurrentImageContext()
-        }
-        // 90:  200-200=0     200-0  =200
-        // 180: 200-200=0     200-200=0
-        // 270: 200-0  =200   200-200=0
-        // 360: 200-0  =200   200-0  =200
-        let x=size.width-point.x
-        let y=size.height-point.y
-        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
-        CGContextSetLineWidth(context, 2.0)
-        CGContextMoveToPoint(context, point.x, point.y)
-        CGContextAddLineToPoint(context, point.x, y)
-        CGContextMoveToPoint(context, point.x, point.y)
-        CGContextAddLineToPoint(context, x, point.y)
-        CGContextAddLineToPoint(context, point.x, y)
-        //CGContextStrokePath(context)
-        CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
-        //CGContextFillPath(context)
-        CGContextDrawPath(context, CGPathDrawingMode.Fill)
-        let image=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-    func drawRectFilled(filled:Bool, size:CGRect) -> UIImage
-    {
-        UIGraphicsBeginImageContext(size.size)
-        let context=UIGraphicsGetCurrentContext()
-        if filled
-        {
-            let rect=CGRectMake(size.origin.x, size.origin.y, size.width, size.height)
-            CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
-            CGContextFillRect(context,rect)
-        }
-        let image=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -145,3 +76,29 @@ class TangramViewController: UIViewController {
     */
 
 }
+/* Vid rotation av enheten anropas följande metoder:
+     UIViewController.willRotateToInterfaceOrientation:duration:
+     UIViewController.viewWillLayoutSubviews
+     UIView.layoutSubviews
+     UIViewController.viewDidLayoutSubviews
+     UIViewController.willAnimateRotationToInterfaceOrientation:duration:
+     UIViewController.shouldAutorotateToInterfaceOrientation:
+     UIViewController.didRotateFromInterfaceOrientation:
+
+   Vid presentation av en ViewController anropas:
+     loadView
+     viewDidLoad
+     viewWillAppear:
+     shouldAutorotateToInterfaceOrientation:
+     viewWillLayoutSubviews
+     UIView.layoutSubviews
+     viewDidLayoutSubviews
+     viewDidAppear:
+
+   När den försvinner anropas:
+     UIViewController.viewWillAppear:bounds
+     UIViewController.viewWillLayoutSubviews
+     UIView.layoutSubviews
+     UIViewController.viewDidLayoutSubviews
+     UIViewController.viewDidAppear:
+*/

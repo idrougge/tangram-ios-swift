@@ -76,7 +76,7 @@
                                     <constraint firstAttribute="width" secondItem="gbQ-Hq-8KL" secondAttribute="height" multiplier="1:1" id="VaL-Zn-6fV"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="nEz-ct-Pnp" kind="embed" id="3c0-dd-cHl"/>
+                                    <segue destination="nEz-ct-Pnp" kind="embed" identifier="PuzzleEmbed" id="3c0-dd-cHl"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -94,7 +94,7 @@
                     <navigationItem key="navigationItem" title="Spel" id="AfB-a1-Ezp">
                         <barButtonItem key="rightBarButtonItem" title="Visa lösning" id="z3o-tb-9Zj">
                             <connections>
-                                <segue destination="ob8-Nh-NXR" kind="show" id="fsL-Up-bzt"/>
+                                <segue destination="ob8-Nh-NXR" kind="show" identifier="ShowSolution" id="fsL-Up-bzt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -118,7 +118,23 @@
                     <view key="view" contentMode="scaleToFill" id="2is-X8-jfb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRs-fz-6qJ">
+                                <rect key="frame" x="0.0" y="140" width="600" height="319"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="hRs-fz-6qJ" secondAttribute="height" multiplier="1:1" constant="281" id="sew-qA-4Ri"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="qmw-PQ-sX3" kind="embed" identifier="SolutionEmbed" id="hfq-h1-uy0"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hRs-fz-6qJ" firstAttribute="leading" secondItem="2is-X8-jfb" secondAttribute="leading" id="6dY-g2-ta5"/>
+                            <constraint firstAttribute="trailing" secondItem="hRs-fz-6qJ" secondAttribute="trailing" id="F3t-BO-EoD"/>
+                            <constraint firstItem="hRs-fz-6qJ" firstAttribute="centerY" secondItem="2is-X8-jfb" secondAttribute="centerY" id="VAJ-Og-wDE"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cst-GO-7QR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -129,6 +145,10 @@
         <scene sceneID="SJY-VL-dvH">
             <objects>
                 <viewController id="nEz-ct-Pnp" customClass="PuzzleViewController" customModule="Tangram2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IyW-PL-r6r"/>
+                        <viewControllerLayoutGuide type="bottom" id="EAd-9E-xfJ"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ii8-Jd-6Zg">
                         <rect key="frame" x="0.0" y="0.0" width="301" height="301"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -138,6 +158,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8qx-bw-DcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1472" y="-191"/>
+        </scene>
+        <!--Solution View Controller-->
+        <scene sceneID="13I-5g-H8S">
+            <objects>
+                <viewController id="qmw-PQ-sX3" customClass="SolutionViewController" customModule="Tangram2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9eq-cl-hwd"/>
+                        <viewControllerLayoutGuide type="bottom" id="il9-T4-ePu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lS1-4b-Vhm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="319"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="arG-CA-DN6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2473" y="242.5"/>
         </scene>
     </scenes>
 </document>

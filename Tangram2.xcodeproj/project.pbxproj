@@ -18,6 +18,7 @@
 		DCD050E91CBC11FE003A5837 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050E81CBC11FE003A5837 /* TileButton.swift */; };
 		DCD050EB1CBE5F8C003A5837 /* TangramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */; };
 		DCD0510F1CC1086C003A5837 /* PuzzleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */; };
+		DCD051111CC135DB003A5837 /* SolutionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD051101CC135DB003A5837 /* SolutionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		DCD050E81CBC11FE003A5837 /* TileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangramViewController.swift; sourceTree = "<group>"; };
 		DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleViewController.swift; sourceTree = "<group>"; };
+		DCD051101CC135DB003A5837 /* SolutionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolutionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				DC3793C61CB7DB980088EF5F /* AppDelegate.swift */,
 				DC3793C81CB7DB980088EF5F /* ViewController.swift */,
 				DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */,
+				DCD051101CC135DB003A5837 /* SolutionViewController.swift */,
 				DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */,
 				DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */,
 				DCD050E81CBC11FE003A5837 /* TileButton.swift */,
@@ -158,6 +161,7 @@
 				DC3793C71CB7DB980088EF5F /* AppDelegate.swift in Sources */,
 				DC3793DB1CBBDCAD0088EF5F /* Tangram.swift in Sources */,
 				DCD050E91CBC11FE003A5837 /* TileButton.swift in Sources */,
+				DCD051111CC135DB003A5837 /* SolutionViewController.swift in Sources */,
 				DCD050EB1CBE5F8C003A5837 /* TangramViewController.swift in Sources */,
 				DC3793D91CB7DBA90088EF5F /* Tiles.swift in Sources */,
 				DCD0510F1CC1086C003A5837 /* PuzzleViewController.swift in Sources */,

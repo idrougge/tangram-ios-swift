@@ -14,7 +14,7 @@ class TileButton: UIButton {
     init(withFrame frame: CGRect, tile:Tiles) {
         self.tile=tile
         super.init(frame: frame)
-        print("TileButton: \(self.tile.text)")
+        //print("TileButton: \(self.tile.text)")
     }
     required init?(coder aDecoder: NSCoder) {
         self.tile=Tiles(nr: 0)

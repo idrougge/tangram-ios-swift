@@ -13,13 +13,19 @@ class PuzzleViewController: UIViewController {
     var screenSize:CGRect?
     var viewSize:CGRect?
     var images:[UIImage]=[]
-    var tiles:[TileButton]=[]
+    var tiles:[TileButton]=[] {didSet {print("Något petade på tiles")} }
+    var puzzle:[Int]=[]
+    let solution:[Int]=[4,5,3,
+        5,5,5,
+        1,5,4]
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("\(className).viewDidLoad()")
+                print("superview: \(view.superview.dynamicType)")
+                print("superview: \(view.superview?.bounds)")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
         print("view.bounds: \(viewSize)")
@@ -36,53 +42,15 @@ class PuzzleViewController: UIViewController {
         //view.layer.addSublayer(layer)
         //view.layer.insertSublayer(layer, above: view.layer)
         
-        let size:CGSize=CGSizeMake(200, 100)
-        
-        //image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        UIGraphicsBeginImageContext(size)
-        let context=UIGraphicsGetCurrentContext()
-        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
-        CGContextSetLineWidth(context, 2.0)
-        CGContextMoveToPoint(context, 0.0, 0.0)             // Flytta "pennan" till övre vänstra hörnet
-        CGContextAddLineToPoint(context, 100, 100)          // Dra ett streck till koordinat 100,100
-        CGContextStrokePath(context)                        // Rita slutligen strecket i kontexten
-        //let images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
         images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
-        //let bild=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        let puzzle=[4,5,3,
-            5,5,5,
-            1,5,4]
-        //var buttonSize=CGRectMake(CGPointZero.x, CGPointZero.y, viewSize!.width/3, viewSize!.width/3)
-        var buttonSize=CGRectMake(viewSize!.origin.x, viewSize!.origin.y, viewSize!.width/3, viewSize!.height/3)
-        createButtons(puzzle)
-        /*
-        for i in 0..<puzzle.count {
-            //let button:UIButton=UIButton()
-            let button:TileButton
-            button=TileButton(withFrame: buttonSize, tile: Tiles(nr: 4))
-            button.setTitle("Hej", forState: .Normal)
-            button.setTitle("Nej", forState: UIControlState.Highlighted)
-            //button.setImage(drawTriangleWithAngle(i*90, size: CGRect(origin: CGPoint(x:10,y:10), size: CGSize(width: 200, height: 200))), forState: UIControlState.Normal)
-            //button.setImage(drawRectFilled(true, size: CGRect(origin: CGPoint(x:10,y:10), size: CGSize(width: 200, height: 200))), forState: UIControlState.Normal)
-            button.setImage(images[puzzle[i]], forState: .Normal)
-            button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            //button.frame=CGRectMake(100, 100+(CGFloat(i)*100), 200, 100)
-            button.frame=buttonSize
-            print("Ruta nr \(i): \(Tiles.tilesAsText[puzzle[i]])")
-            view.addSubview(button)
-            //gameContainer.addSubview(button)
-            print("button.frame: \(button.frame)")
-            buttonSize=CGRectMake(buttonSize.origin.x+buttonSize.width, buttonSize.origin.y,
-                buttonSize.width, buttonSize.height)
-            if buttonSize.origin.x>=viewSize!.width
-            {
-                buttonSize=CGRectMake(viewSize!.origin.x, buttonSize.origin.y+buttonSize.height,
-                    buttonSize.width, buttonSize.height)
-            }
-            button.addTarget(self, action: "clickTile:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
+        if puzzle.isEmpty
+        {
+            print("Pusslet är tomt.")
+         puzzle=[4,5,3,
+                    5,5,5,
+                    1,5,4]
         }
-        */
+        createButtons(puzzle)
     }
     func createButtons(puzzle:[Int])
     {
@@ -93,18 +61,18 @@ class PuzzleViewController: UIViewController {
             button.setTitle("Nej", forState: UIControlState.Highlighted)
             button.setImage(images[puzzle[i]], forState: .Normal)
             button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            button.addTarget(self, action: "clickTile:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
+            button.addTarget(self, action: "tileWasClicked:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
             tiles.append(button)
         }
     }
-    func layoutButtons(puzzle:[Int],frame:CGRect)
+    func layoutButtons(frame:CGRect)
     {
         var buttonSize=CGRectMake(frame.origin.x, frame.origin.y, frame.width/3, frame.height/3)
         //for i in 0..<tiles.count {
         var i=0
         for button in tiles{
             button.frame=buttonSize
-            print("Ruta nr \(i++): \(button.tile.text)")
+            //print("Ruta nr \(i++): \(button.tile.text)")
             view.addSubview(button)
             print("button.frame: \(button.frame)")
             buttonSize=CGRectMake(buttonSize.origin.x+buttonSize.width, buttonSize.origin.y,
@@ -118,11 +86,7 @@ class PuzzleViewController: UIViewController {
 
     }
     
-    func clickTile()
-    {
-        print("Du klickade på en knapp")
-    }
-    func clickTile(sender: TileButton!)
+    func tileWasClicked(sender: TileButton!)
     {
         print("Du klickade på en knapp med ruta \(sender.tile.text)")
         sender.tile=sender.tile.next()
@@ -143,13 +107,10 @@ class PuzzleViewController: UIViewController {
         images.append(drawRectFilled(true, size: tileSize))
         return images
     }
-    
     func drawTriangleWithAngle(angle:Int, size:CGRect) -> UIImage
     {
         UIGraphicsBeginImageContext(size.size)
         let context=UIGraphicsGetCurrentContext()
-        //let l=size.width
-        //let r=size.width
         let point:CGPoint
         switch(angle)
         {
@@ -163,10 +124,6 @@ class PuzzleViewController: UIViewController {
             point=CGPoint(x: size.origin.x, y: size.origin.y)
         default: return UIGraphicsGetImageFromCurrentImageContext()
         }
-        // 90:  200-200=0     200-0  =200
-        // 180: 200-200=0     200-200=0
-        // 270: 200-0  =200   200-200=0
-        // 360: 200-0  =200   200-0  =200
         let x=size.width-point.x
         let y=size.height-point.y
         CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
@@ -198,6 +155,19 @@ class PuzzleViewController: UIViewController {
         UIGraphicsEndImageContext()
         return image
     }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("\(className).prepareForSegue(\(segue.identifier))")
+        if segue.identifier=="ShowSolution"
+        {
+            if let vc=segue.destinationViewController as? SolutionViewController
+            {
+                vc.puzzle=[4,4,4,
+                    5,5,5,
+                    1,5,4]
+
+            }
+        }
+    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("\(className).viewWillAppear()")
@@ -209,10 +179,7 @@ class PuzzleViewController: UIViewController {
         print("\(className).viewWillLayoutSubViews()")
         viewSize=view.bounds                         // Hämta vyns storlek
         print("Vyns storlek: \(viewSize!.width)x\(viewSize!.height) @ \(viewSize!.origin) max: \(viewSize!.maxX)x\(viewSize!.maxY)")
-        let puzzle=[4,5,3,
-            5,5,5,
-            1,5,4]
-        layoutButtons(puzzle, frame: viewSize!)
+        layoutButtons(viewSize!)
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
