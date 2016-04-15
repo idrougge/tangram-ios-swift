@@ -15,9 +15,7 @@ class PuzzleViewController: UIViewController {
     var images:[UIImage]=[]
     var tiles:[TileButton]=[] {didSet {print("Något petade på tiles")} }
     var puzzle:[Int]=[]
-    let solution:[Int]=[4,5,3,
-        5,5,5,
-        1,5,4]
+    var solution:[Int]=[]
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
 
     override func viewDidLoad() {
@@ -92,6 +90,21 @@ class PuzzleViewController: UIViewController {
         sender.tile=sender.tile.next()
         print("Rutan blev \(sender.tile.text)")
         sender.setImage(images[sender.tile.nr],forState: .Normal)
+        if completed() {
+            navigationController?.navigationBar.topItem?.title="Du vann!"
+            performSelector("goBack", withObject: nil, afterDelay: 2.0)
+        }
+    }
+    func completed() ->Bool
+    {
+        for i in 0..<puzzle.count {
+            if tiles[i].tile.nr != solution[i] { return false }
+        }
+        return true
+    }
+    func goBack()
+    {
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func buildGraphicsAssets(size: CGRect, nrOfTiles: Int) -> [UIImage]

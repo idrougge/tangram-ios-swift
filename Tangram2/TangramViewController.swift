@@ -50,6 +50,9 @@ class TangramViewController: UIViewController {
             vc.puzzle=[4,5,2,
                 5,5,5,
                 1,5,4]
+            vc.solution=[4,4,4,
+                5,5,5,
+                1,5,4]
         default: print("Okänd segue: \(segue.identifier)")
         }
     }
