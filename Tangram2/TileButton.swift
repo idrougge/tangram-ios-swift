@@ -11,7 +11,7 @@ import UIKit
 class TileButton: UIButton {
     var tile:Tiles
 
-    init(frame: CGRect, tile:Tiles) {
+    init(withFrame frame: CGRect, tile:Tiles) {
         self.tile=tile
         super.init(frame: frame)
         print("TileButton: \(self.tile.text)")

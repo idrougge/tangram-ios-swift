@@ -13,13 +13,22 @@ class TangramViewController: UIViewController {
     var screenSize:CGRect?
     var viewSize:CGRect?
     var images:[UIImage]=[]
+    @IBOutlet weak var gameContainer: UIView!
+    
+    lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("TangramViewController.viewDidLoad()")
+        print("\(className).viewDidLoad()")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
+        print("view.bounds: \(viewSize)")
+        viewSize=view.frame
+        print("view.frame: \(viewSize)")
+        //viewSize=gameContainer.frame
+        print("container.frame: \(viewSize)")
+        //print("container.frame.size: \(gameContainer.frame.size)")
         
         let layer:CALayer=CALayer()
         layer.frame=viewSize!
@@ -28,48 +37,9 @@ class TangramViewController: UIViewController {
         //view.layer.addSublayer(layer)
         //view.layer.insertSublayer(layer, above: view.layer)
         
-        let size:CGSize=CGSizeMake(200, 100)
-        
-        //image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-        UIGraphicsBeginImageContext(size)
-        let context=UIGraphicsGetCurrentContext()
-        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
-        CGContextSetLineWidth(context, 2.0)
-        CGContextMoveToPoint(context, 0.0, 0.0)             // Flytta "pennan" till övre vänstra hörnet
-        CGContextAddLineToPoint(context, 100, 100)          // Dra ett streck till koordinat 100,100
-        CGContextStrokePath(context)                        // Rita slutligen strecket i kontexten
-        //let images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
         images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
-        //let bild=UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        let puzzle=[4,5,3,
-            5,5,5,
-            1,5,4]
-        var buttonSize=CGRectMake(CGPointZero.x, CGPointZero.y, viewSize!.width/3, viewSize!.width/3)
-        for i in 0..<puzzle.count {
-            //let button:UIButton=UIButton()
-            let button:TileButton
-            button=TileButton(frame: buttonSize, tile: Tiles(nr: 4))
-            button.setTitle("Hej", forState: .Normal)
-            button.setTitle("Nej", forState: UIControlState.Highlighted)
-            //button.setImage(drawTriangleWithAngle(i*90, size: CGRect(origin: CGPoint(x:10,y:10), size: CGSize(width: 200, height: 200))), forState: UIControlState.Normal)
-            //button.setImage(drawRectFilled(true, size: CGRect(origin: CGPoint(x:10,y:10), size: CGSize(width: 200, height: 200))), forState: UIControlState.Normal)
-            button.setImage(images[puzzle[i]], forState: .Normal)
-            button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            //button.frame=CGRectMake(100, 100+(CGFloat(i)*100), 200, 100)
-            button.frame=buttonSize
-            print("Ruta nr \(i): \(Tiles.tilesAsText[puzzle[i]])")
-            view.addSubview(button)
-            buttonSize=CGRectMake(buttonSize.origin.x+buttonSize.width, buttonSize.origin.y,
-                buttonSize.width, buttonSize.width)
-            if buttonSize.origin.x>=viewSize!.width
-            {
-                buttonSize=CGRectMake(viewSize!.origin.x, buttonSize.origin.y+buttonSize.width,
-                    buttonSize.width, buttonSize.width)
-            }
-            button.addTarget(self, action: "clickTile:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
-        }
-        
+        //let puzzleController=PuzzleViewController()
+        //addChildViewController(puzzleController)
     }
     
     func clickTile()
@@ -155,11 +125,11 @@ class TangramViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("TangramViewController.viewDidAppear()")
+        print("\(className).viewDidAppear()")
     }
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        print("TangramViewController.viewWillTransitionToSize()")
+        print("\(className).viewWillTransitionToSize(\(size))")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
         print("Skärmstorlek: \(screenSize!.width)x\(screenSize!.height)")

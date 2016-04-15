@@ -9,10 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+    lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("viewDidLoad()")
+        print("\(className).viewDidLoad()")
         
         //let vc=TangramViewController()
         //showViewController(vc, sender: view)
@@ -23,11 +25,11 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("viewDidAppear()")
+        print("\(className).viewDidAppear()")
     }
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        print("viewWillTransitionToSize()")
+        print("\(className).viewWillTransitionToSize(\(size))")
     }
 
     override func didReceiveMemoryWarning() {

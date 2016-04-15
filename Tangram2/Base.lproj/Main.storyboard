@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -64,15 +65,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qc-9b-Hop">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qc-9b-Hop">
                                 <rect key="frame" x="277" y="493" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-Hq-8KL">
+                                <rect key="frame" x="150" y="130" width="301" height="301"/>
+                                <color key="backgroundColor" red="1" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gbQ-Hq-8KL" secondAttribute="height" multiplier="1:1" id="VaL-Zn-6fV"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="nEz-ct-Pnp" kind="embed" id="3c0-dd-cHl"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gyU-AA-hy7" firstAttribute="top" secondItem="1Qc-9b-Hop" secondAttribute="bottom" constant="77" id="8Bh-pO-QdD"/>
+                            <constraint firstItem="1Qc-9b-Hop" firstAttribute="top" secondItem="gbQ-Hq-8KL" secondAttribute="bottom" priority="750" constant="62" id="0uA-Yl-KAa"/>
+                            <constraint firstItem="gbQ-Hq-8KL" firstAttribute="top" secondItem="63S-dO-knY" secondAttribute="bottom" priority="750" constant="66" id="2Nz-Rd-m9u"/>
+                            <constraint firstItem="gyU-AA-hy7" firstAttribute="top" secondItem="1Qc-9b-Hop" secondAttribute="bottom" constant="33" id="8Bh-pO-QdD"/>
                             <constraint firstItem="1Qc-9b-Hop" firstAttribute="centerX" secondItem="Zbx-pR-fax" secondAttribute="centerX" id="x6X-Ng-3UT"/>
+                            <constraint firstItem="gbQ-Hq-8KL" firstAttribute="leading" secondItem="Zbx-pR-fax" secondAttribute="leading" priority="750" constant="150" id="yx0-MG-cjK"/>
+                            <constraint firstItem="gbQ-Hq-8KL" firstAttribute="centerX" secondItem="1Qc-9b-Hop" secondAttribute="centerX" id="zzl-b2-Nja"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -84,10 +99,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="gameContainer" destination="gbQ-Hq-8KL" id="Vc3-yf-eQr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jtG-bz-TuB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="963" y="251"/>
+            <point key="canvasLocation" x="965" y="243"/>
         </scene>
         <!--Tangram View Controller-->
         <scene sceneID="H1O-GL-mmp">
@@ -105,7 +123,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cst-GO-7QR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1628" y="251"/>
+            <point key="canvasLocation" x="1722" y="243"/>
+        </scene>
+        <!--Puzzle View Controller-->
+        <scene sceneID="SJY-VL-dvH">
+            <objects>
+                <viewController id="nEz-ct-Pnp" customClass="PuzzleViewController" customModule="Tangram2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ii8-Jd-6Zg">
+                        <rect key="frame" x="0.0" y="0.0" width="301" height="301"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8qx-bw-DcX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1472" y="-191"/>
         </scene>
     </scenes>
 </document>
