@@ -1,0 +1,15 @@
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "1Qc-9b-Hop"; */
+"1Qc-9b-Hop.normalTitle" = "Knapp";
+
+/* Class = "UINavigationItem"; title = "Spel"; ObjectID = "AfB-a1-Ezp"; */
+"AfB-a1-Ezp.title" = "Spel";
+
+/* Class = "UINavigationItem"; title = "Titel"; ObjectID = "Epu-OH-N60"; */
+"Epu-OH-N60.title" = "Titel";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Hon-GW-u2l"; */
+"Hon-GW-u2l.normalTitle" = "Knapp";
+
+/* Class = "UIBarButtonItem"; title = "Visa lösning"; ObjectID = "z3o-tb-9Zj"; */
+"z3o-tb-9Zj.title" = "Visa lösning";

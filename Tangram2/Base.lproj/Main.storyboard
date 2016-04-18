@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-421" y="251"/>
         </scene>
-        <!--Titel-->
+        <!--Title-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Tangram2" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,12 +48,12 @@
                             <constraint firstItem="Hon-GW-u2l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hnb-z1-OBM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Titel" id="Epu-OH-N60"/>
+                    <navigationItem key="navigationItem" title="Title" id="Epu-OH-N60"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--Spel-->
+        <!--Play-->
         <scene sceneID="VF6-Bc-IRW">
             <objects>
                 <viewController id="amm-lP-Tnz" customClass="TangramViewController" customModule="Tangram2" customModuleProvider="target" sceneMemberID="viewController">
@@ -98,8 +98,8 @@
                         </variation>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Spel" id="AfB-a1-Ezp">
-                        <barButtonItem key="rightBarButtonItem" title="Visa lösning" id="z3o-tb-9Zj">
+                    <navigationItem key="navigationItem" title="Play" id="AfB-a1-Ezp">
+                        <barButtonItem key="rightBarButtonItem" title="Show solution" id="z3o-tb-9Zj">
                             <connections>
                                 <segue destination="ob8-Nh-NXR" kind="show" identifier="ShowSolution" id="fsL-Up-bzt"/>
                             </connections>

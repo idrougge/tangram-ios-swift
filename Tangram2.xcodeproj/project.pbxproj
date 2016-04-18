@@ -15,6 +15,7 @@
 		DC3793D91CB7DBA90088EF5F /* Tiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3793D81CB7DBA90088EF5F /* Tiles.swift */; };
 		DC3793DB1CBBDCAD0088EF5F /* Tangram.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */; };
 		DC3793DD1CBBDD4F0088EF5F /* PlayField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */; };
+		DC98E76B1CC4DA99006C5BE0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC98E76A1CC4DA99006C5BE0 /* Localizable.strings */; };
 		DCD050E91CBC11FE003A5837 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050E81CBC11FE003A5837 /* TileButton.swift */; };
 		DCD050EB1CBE5F8C003A5837 /* TangramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */; };
 		DCD0510F1CC1086C003A5837 /* PuzzleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */; };
@@ -32,6 +33,11 @@
 		DC3793D81CB7DBA90088EF5F /* Tiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tiles.swift; path = ../Tiles.swift; sourceTree = "<group>"; };
 		DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tangram.swift; sourceTree = "<group>"; };
 		DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayField.swift; sourceTree = "<group>"; };
+		DC98E76A1CC4DA99006C5BE0 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		DC98E76C1CC4DEB4006C5BE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
+		DC98E76D1CC4DEB4006C5BE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		DC98E76E1CC4DEB9006C5BE0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		DC98E76F1CC4DEB9006C5BE0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		DCD050E81CBC11FE003A5837 /* TileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangramViewController.swift; sourceTree = "<group>"; };
 		DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +79,7 @@
 				DC3793C61CB7DB980088EF5F /* AppDelegate.swift */,
 				DC3793C81CB7DB980088EF5F /* ViewController.swift */,
 				DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */,
+				DC98E76A1CC4DA99006C5BE0 /* Localizable.strings */,
 				DCD051101CC135DB003A5837 /* SolutionViewController.swift */,
 				DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */,
 				DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */,
@@ -145,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC3793D11CB7DB990088EF5F /* LaunchScreen.storyboard in Resources */,
+				DC98E76B1CC4DA99006C5BE0 /* Localizable.strings in Resources */,
 				DC3793CE1CB7DB990088EF5F /* Assets.xcassets in Resources */,
 				DC3793CC1CB7DB980088EF5F /* Main.storyboard in Resources */,
 			);
@@ -176,6 +184,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC3793CB1CB7DB980088EF5F /* Base */,
+				DC98E76C1CC4DEB4006C5BE0 /* sv */,
+				DC98E76E1CC4DEB9006C5BE0 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -184,6 +194,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				DC3793D01CB7DB990088EF5F /* Base */,
+				DC98E76D1CC4DEB4006C5BE0 /* sv */,
+				DC98E76F1CC4DEB9006C5BE0 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
