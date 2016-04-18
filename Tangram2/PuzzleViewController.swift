@@ -92,6 +92,9 @@ class PuzzleViewController: UIViewController {
         sender.setImage(images[sender.tile.nr],forState: .Normal)
         if completed() {
             navigationController?.navigationBar.topItem?.title="Du vann!"
+            let alphaView=UIView(frame: screenSize!)
+            alphaView.backgroundColor=UIColor.whiteColor().colorWithAlphaComponent(0.5)
+            view.superview!.superview!.addSubview(alphaView)
             performSelector("goBack", withObject: nil, afterDelay: 2.0)
         }
     }
