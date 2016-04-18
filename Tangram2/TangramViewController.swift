@@ -13,6 +13,7 @@ class TangramViewController: UIViewController {
     var screenSize:CGRect?
     var viewSize:CGRect?
     var images:[UIImage]=[]
+    var tangram:Tangram=Tangram()
     @IBOutlet weak var gameContainer: UIView!
     
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
@@ -42,17 +43,24 @@ class TangramViewController: UIViewController {
         case "ShowSolution": return
         case "SolutionEmbed":
             let vc=segue.destinationViewController as! SolutionViewController
+            /*
             vc.puzzle=[4,4,4,
                        5,5,5,
                        1,5,4]
+            */
+            vc.puzzle=tangram.playfield.solution
         case "PuzzleEmbed":
             let vc=segue.destinationViewController as! PuzzleViewController
+            /*
             vc.puzzle=[4,5,2,
                 5,5,5,
                 1,5,4]
             vc.solution=[4,4,4,
                 5,5,5,
                 1,5,4]
+            */
+            vc.puzzle=tangram.playfield.field
+            vc.solution=tangram.playfield.solution
         default: print("Okänd segue: \(segue.identifier)")
         }
     }

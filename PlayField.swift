@@ -16,10 +16,12 @@ public class PlayField {
     public var cols=MINCOLS
     let field:[Int]
     let solution:[Int]
+    let className:String
     
     init(solution:[Int], puzzle:[Int])
     {
-        assert(solution.count>PlayField.MINTILES,"PlayField: Fel vid init: Antalet rutor får inte vara mindre än \(PlayField.MINTILES)!")
+        className=String(self.dynamicType).componentsSeparatedByString(" ").last!
+        assert(solution.count>=PlayField.MINTILES,"PlayField: Fel vid init: Antalet rutor får inte vara mindre än \(PlayField.MINTILES)! (var: \(solution.count))")
         assert(Double(solution.count) % sqrt(Double(solution.count)) == 0,"PlayField: Fel vid init: Antalet rutor måste bilda en kvadrat")
         self.field=puzzle
         self.solution=solution
@@ -27,6 +29,15 @@ public class PlayField {
         cols=rows
         print("PlayField: Skapar spelfält med \(solution.count) rutor.")
         
+    }
+    convenience init(solution:[Int])
+    {
+        var puzzle:[Int]=[]
+        for _ in 0...solution.count
+        {
+            puzzle.append(random()%5)
+        }
+        self.init(solution: solution, puzzle: puzzle)
     }
     
     func completed() -> Bool

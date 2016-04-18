@@ -16,6 +16,7 @@ class PuzzleViewController: UIViewController {
     var tiles:[TileButton]=[] {didSet {print("Något petade på tiles")} }
     var puzzle:[Int]=[]
     var solution:[Int]=[]
+    private let tileColour:UIColor=UIColor.redColor()
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
 
     override func viewDidLoad() {
@@ -40,7 +41,7 @@ class PuzzleViewController: UIViewController {
         //view.layer.addSublayer(layer)
         //view.layer.insertSublayer(layer, above: view.layer)
         
-        images=buildGraphicsAssets(viewSize!, nrOfTiles: 3)
+        images=buildGraphicsAssets(viewSize!, tilesPerRow: 3, colour: tileColour)
         if puzzle.isEmpty
         {
             print("Pusslet är tomt.")
@@ -53,21 +54,27 @@ class PuzzleViewController: UIViewController {
     func createButtons(puzzle:[Int])
     {
         let buttonSize=CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.width/3, view.frame.height/3)
-        for i in 0..<puzzle.count {
-            let button:TileButton=TileButton(withFrame: buttonSize, tile: Tiles(nr: puzzle[i]))
-            button.setTitle("Hej", forState: .Normal)
-            button.setTitle("Nej", forState: UIControlState.Highlighted)
-            button.setImage(images[puzzle[i]], forState: .Normal)
-            button.setTitleColor(UIColor.blueColor(), forState: .Normal)
-            button.addTarget(self, action: "tileWasClicked:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
-            tiles.append(button)
+        for i in 0..<puzzle.count
+        {
+            tiles.append(buttonWithTile(Tiles(nr: puzzle[i]), size: buttonSize))
         }
+    }
+    func buttonWithTile(tile: Tiles, size: CGRect) -> TileButton
+    {
+        let button:TileButton=TileButton(withFrame: size, tile: tile)
+        button.setTitle("Hej", forState: .Normal)
+        button.setTitle("Nej", forState: UIControlState.Highlighted)
+        button.setImage(images[tile.nr], forState: .Normal)
+        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        button.tintColor=tileColour
+        button.addTarget(self, action: "tileWasClicked:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
+        return button
     }
     func layoutButtons(frame:CGRect)
     {
         var buttonSize=CGRectMake(frame.origin.x, frame.origin.y, frame.width/3, frame.height/3)
         //for i in 0..<tiles.count {
-        var i=0
+        //var i=0
         for button in tiles{
             button.frame=buttonSize
             //print("Ruta nr \(i++): \(button.tile.text)")
@@ -96,11 +103,14 @@ class PuzzleViewController: UIViewController {
             alphaView.backgroundColor=UIColor.whiteColor().colorWithAlphaComponent(0.5)
             view.superview!.superview!.addSubview(alphaView)
             performSelector("goBack", withObject: nil, afterDelay: 2.0)
+            
         }
     }
     func completed() ->Bool
     {
+        print("completed(): puzzle.count \(puzzle.count)")
         for i in 0..<puzzle.count {
+            print(i)
             if tiles[i].tile.nr != solution[i] { return false }
         }
         return true
@@ -110,10 +120,10 @@ class PuzzleViewController: UIViewController {
         navigationController?.popViewControllerAnimated(true)
     }
     
-    func buildGraphicsAssets(size: CGRect, nrOfTiles: Int) -> [UIImage]
+    func buildGraphicsAssets(size: CGRect, tilesPerRow: Int, colour: UIColor) -> [UIImage]
     {
         var images:[UIImage]=[]
-        let tileWidth=size.size.width/CGFloat(nrOfTiles)     // Fan så fult -- ska det vara så här?
+        let tileWidth=size.size.width/CGFloat(tilesPerRow)     // Fan så fult -- ska det vara så här?
         let tileSize=CGRect(origin: CGPointZero, size: CGSize(width: tileWidth, height: tileWidth))
         images.append(drawRectFilled(false, size: tileSize))
         for i in 1...4
@@ -164,7 +174,8 @@ class PuzzleViewController: UIViewController {
         if filled
         {
             let rect=CGRectMake(size.origin.x, size.origin.y, size.width, size.height)
-            CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
+            //CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
+            CGContextSetFillColorWithColor(context,tileColour.CGColor)
             CGContextFillRect(context,rect)
         }
         let image=UIGraphicsGetImageFromCurrentImageContext()

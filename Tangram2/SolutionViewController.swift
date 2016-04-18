@@ -9,12 +9,21 @@
 import UIKit
 
 class SolutionViewController: PuzzleViewController {
+    private let tileColour:UIColor=UIColor.blueColor()  // Detta funkar inte pga diverse skäl
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        print("Detta är SolutionViewController.")
+        print("tileColour: \(tileColour)")
     }
 
+    override func buttonWithTile(tile: Tiles, size: CGRect) -> TileButton {
+        let button=super.buttonWithTile(tile, size: size)
+        button.removeTarget(self, action: "tileWasClicked:", forControlEvents: .TouchUpInside)
+        return button
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

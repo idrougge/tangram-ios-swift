@@ -32,7 +32,7 @@
 		DC3793D21CB7DB990088EF5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC3793D81CB7DBA90088EF5F /* Tiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tiles.swift; path = ../Tiles.swift; sourceTree = "<group>"; };
 		DC3793DA1CBBDCAD0088EF5F /* Tangram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tangram.swift; sourceTree = "<group>"; };
-		DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayField.swift; sourceTree = "<group>"; };
+		DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayField.swift; path = ../PlayField.swift; sourceTree = "<group>"; };
 		DC98E76A1CC4DA99006C5BE0 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		DC98E76C1CC4DEB4006C5BE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Main.strings; sourceTree = "<group>"; };
 		DC98E76D1CC4DEB4006C5BE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -58,7 +58,6 @@
 		DC3793BA1CB7DB980088EF5F = {
 			isa = PBXGroup;
 			children = (
-				DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */,
 				DC3793C51CB7DB980088EF5F /* Tangram2 */,
 				DC3793C41CB7DB980088EF5F /* Products */,
 			);
@@ -75,6 +74,7 @@
 		DC3793C51CB7DB980088EF5F /* Tangram2 */ = {
 			isa = PBXGroup;
 			children = (
+				DC3793DC1CBBDD4F0088EF5F /* PlayField.swift */,
 				DC3793D81CB7DBA90088EF5F /* Tiles.swift */,
 				DC3793C61CB7DB980088EF5F /* AppDelegate.swift */,
 				DC3793C81CB7DB980088EF5F /* ViewController.swift */,
