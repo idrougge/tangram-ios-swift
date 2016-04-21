@@ -17,7 +17,7 @@ public class PlayField {
     let field:[Int]
     let solution:[Int]
     let className:String
-    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     init(solution:[Int], puzzle:[Int])
     {
         className=String(self.dynamicType).componentsSeparatedByString(" ").last!
@@ -30,20 +30,24 @@ public class PlayField {
         print("PlayField: Skapar spelfält med \(solution.count) rutor.")
         
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     convenience init(solution:[Int])
     {
+        print("PlayField: (convenience init): solution: \(solution)")
         var puzzle:[Int]=[]
-        for _ in 0...solution.count
+        for _ in 0..<solution.count
         {
             puzzle.append(random()%5)
         }
         self.init(solution: solution, puzzle: puzzle)
+        print("PlayField: (convenience init): solution: \(self.solution)")
     }
-    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func completed() -> Bool
     {
-        for i in field
+        for i in 0..<field.count
         {
+            print("\(i): \(Tiles.allTiles[field[i]])<=>\(Tiles.allTiles[solution[i]])")
             if field[i] != solution[i]
             {
                 return false

@@ -16,6 +16,13 @@ class SolutionViewController: PuzzleViewController {
         // Do any additional setup after loading the view.
         print("Detta är SolutionViewController.")
         print("tileColour: \(tileColour)")
+        
+        guard let _puzzle=tangram?.playfield.solution
+            else { fatalError() }
+        self.puzzle=_puzzle
+        tiles=[]
+        createButtons(_puzzle)
+        images=buildGraphicsAssets(viewSize!, tilesPerRow: tangram!.playfield.cols, colour: tileColour)
     }
 
     override func buttonWithTile(tile: Tiles, size: CGRect) -> TileButton {

@@ -70,10 +70,10 @@
                                 <state key="normal" title="Button"/>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbQ-Hq-8KL">
-                                <rect key="frame" x="20" y="72" width="560" height="476"/>
+                                <rect key="frame" x="20" y="31" width="560" height="559"/>
                                 <color key="backgroundColor" red="1" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="gbQ-Hq-8KL" secondAttribute="height" multiplier="1:1" constant="84" id="VaL-Zn-6fV"/>
+                                    <constraint firstAttribute="width" secondItem="gbQ-Hq-8KL" secondAttribute="height" multiplier="1:1" constant="1" id="VaL-Zn-6fV"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="nEz-ct-Pnp" kind="embed" identifier="PuzzleEmbed" id="3c0-dd-cHl"/>
@@ -127,9 +127,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRs-fz-6qJ">
-                                <rect key="frame" x="0.0" y="140" width="600" height="319"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="599"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="hRs-fz-6qJ" secondAttribute="height" multiplier="1:1" constant="281" id="sew-qA-4Ri"/>
+                                    <constraint firstAttribute="width" secondItem="hRs-fz-6qJ" secondAttribute="height" multiplier="1:1" constant="1" id="sew-qA-4Ri"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="qmw-PQ-sX3" kind="embed" identifier="SolutionEmbed" id="hfq-h1-uy0"/>
@@ -157,7 +157,7 @@
                         <viewControllerLayoutGuide type="bottom" id="EAd-9E-xfJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ii8-Jd-6Zg">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="476"/>
+                        <rect key="frame" x="0.0" y="0.0" width="560" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -175,7 +175,7 @@
                         <viewControllerLayoutGuide type="bottom" id="il9-T4-ePu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lS1-4b-Vhm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="319"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="599"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

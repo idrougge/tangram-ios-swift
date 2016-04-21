@@ -13,12 +13,13 @@ class PuzzleViewController: UIViewController {
     var screenSize:CGRect?
     var viewSize:CGRect?
     var images:[UIImage]=[]
-    var tiles:[TileButton]=[] {didSet {print("Något petade på tiles")} }
+    var tiles:[TileButton]=[] //{didSet {print("Något petade på tiles")} }
+    var tangram:Tangram?
     var puzzle:[Int]=[]
     var solution:[Int]=[]
     private let tileColour:UIColor=UIColor.redColor()
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -30,46 +31,48 @@ class PuzzleViewController: UIViewController {
         print("view.bounds: \(viewSize)")
         viewSize=view.frame
         print("view.frame: \(viewSize)")
-        //viewSize=gameContainer.frame
         print("view.bounds: \(view.bounds)")
-        //print("container.frame.size: \(gameContainer.frame.size)")
         
-        let layer:CALayer=CALayer()
-        layer.frame=viewSize!
-        layer.backgroundColor=UIColor.brownColor().CGColor
+        guard let _puzzle=tangram?.playfield.field, let _solution=tangram?.playfield.solution
+            else { fatalError() }
+        self.puzzle=_puzzle
+        self.solution=_solution
+        print("\(className): self.puzzle: \(self.puzzle)")
+        print("\(className): self.solution: \(self.solution)")
         
-        //view.layer.addSublayer(layer)
-        //view.layer.insertSublayer(layer, above: view.layer)
-        
-        images=buildGraphicsAssets(viewSize!, tilesPerRow: 3, colour: tileColour)
+        images=buildGraphicsAssets(viewSize!, tilesPerRow: tangram!.playfield.cols, colour: tileColour)
         if puzzle.isEmpty
         {
             print("Pusslet är tomt.")
-         puzzle=[4,5,3,
+            self.puzzle=[4,5,3,
                     5,5,5,
                     1,5,4]
         }
-        createButtons(puzzle)
+        createButtons(self.puzzle)
     }
-    func createButtons(puzzle:[Int])
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func createButtons(fromPuzzle:[Int])
     {
-        let buttonSize=CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.width/3, view.frame.height/3)
-        for i in 0..<puzzle.count
+        let buttonSize=CGRectMake(view.frame.origin.x, view.frame.origin.y,
+            view.frame.width/CGFloat(tangram!.playfield.cols), view.frame.height/CGFloat(tangram!.playfield.rows))
+        for i in 0..<fromPuzzle.count
         {
-            tiles.append(buttonWithTile(Tiles(nr: puzzle[i]), size: buttonSize))
+            tiles.append(buttonWithTile(Tiles(nr: fromPuzzle[i]), size: buttonSize))
         }
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func buttonWithTile(tile: Tiles, size: CGRect) -> TileButton
     {
         let button:TileButton=TileButton(withFrame: size, tile: tile)
-        button.setTitle("Hej", forState: .Normal)
-        button.setTitle("Nej", forState: UIControlState.Highlighted)
+        //button.setTitle("Hej", forState: .Normal)
+        //button.setTitle("Nej", forState: UIControlState.Highlighted)
         button.setImage(images[tile.nr], forState: .Normal)
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
         button.tintColor=tileColour
         button.addTarget(self, action: "tileWasClicked:", forControlEvents: .TouchUpInside)  // Kolonet efteråt anger att knappen ska skickas som parameter
         return button
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func layoutButtons(frame:CGRect)
     {
         var buttonSize=CGRectMake(frame.origin.x, frame.origin.y, frame.width/3, frame.height/3)
@@ -79,7 +82,7 @@ class PuzzleViewController: UIViewController {
             button.frame=buttonSize
             //print("Ruta nr \(i++): \(button.tile.text)")
             view.addSubview(button)
-            print("button.frame: \(button.frame)")
+            //print("button.frame: \(button.frame)")
             buttonSize=CGRectMake(buttonSize.origin.x+buttonSize.width, buttonSize.origin.y,
                 buttonSize.width, buttonSize.height)
             if buttonSize.origin.x>=viewSize!.width
@@ -88,9 +91,8 @@ class PuzzleViewController: UIViewController {
                     buttonSize.width, buttonSize.height)
             }
         }
-
     }
-    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func tileWasClicked(sender: TileButton!)
     {
         print("Du klickade på en knapp med ruta \(sender.tile.text)")
@@ -103,23 +105,26 @@ class PuzzleViewController: UIViewController {
             alphaView.backgroundColor=UIColor.whiteColor().colorWithAlphaComponent(0.5)
             view.superview!.superview!.addSubview(alphaView)
             performSelector("goBack", withObject: nil, afterDelay: 2.0)
-            
         }
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func completed() ->Bool
     {
-        print("completed(): puzzle.count \(puzzle.count)")
         for i in 0..<puzzle.count {
             print(i)
+            print("\(tiles[i].tile.nr) <> \(solution[i])")
             if tiles[i].tile.nr != solution[i] { return false }
         }
         return true
+        
+        //return tangram!.playfield.completed()
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func goBack()
     {
         navigationController?.popViewControllerAnimated(true)
     }
-    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func buildGraphicsAssets(size: CGRect, tilesPerRow: Int, colour: UIColor) -> [UIImage]
     {
         var images:[UIImage]=[]
@@ -133,6 +138,7 @@ class PuzzleViewController: UIViewController {
         images.append(drawRectFilled(true, size: tileSize))
         return images
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func drawTriangleWithAngle(angle:Int, size:CGRect) -> UIImage
     {
         UIGraphicsBeginImageContext(size.size)
@@ -167,6 +173,7 @@ class PuzzleViewController: UIViewController {
         UIGraphicsEndImageContext()
         return image
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func drawRectFilled(filled:Bool, size:CGRect) -> UIImage
     {
         UIGraphicsBeginImageContext(size.size)
@@ -174,14 +181,15 @@ class PuzzleViewController: UIViewController {
         if filled
         {
             let rect=CGRectMake(size.origin.x, size.origin.y, size.width, size.height)
-            //CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
-            CGContextSetFillColorWithColor(context,tileColour.CGColor)
+            CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
+            //CGContextSetFillColorWithColor(context,tileColour.CGColor)
             CGContextFillRect(context,rect)
         }
         let image=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("\(className).prepareForSegue(\(segue.identifier))")
         if segue.identifier=="ShowSolution"
@@ -191,16 +199,18 @@ class PuzzleViewController: UIViewController {
                 vc.puzzle=[4,4,4,
                     5,5,5,
                     1,5,4]
-
             }
         }
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("\(className).viewWillAppear()")
+        screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
         print("Vyns storlek: \(viewSize!.width)x\(viewSize!.height) @ \(viewSize!.origin) max: \(viewSize!.maxX)x\(viewSize!.maxY)")
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         print("\(className).viewWillLayoutSubViews()")
@@ -208,14 +218,18 @@ class PuzzleViewController: UIViewController {
         print("Vyns storlek: \(viewSize!.width)x\(viewSize!.height) @ \(viewSize!.origin) max: \(viewSize!.maxX)x\(viewSize!.maxY)")
         layoutButtons(viewSize!)
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         print("\(className).viewDidLayoutSubViews()")
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         print("\(className).viewDidAppear()")
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         print("\(className).viewWillTransitionToSize()")

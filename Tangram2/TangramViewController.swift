@@ -48,7 +48,8 @@ class TangramViewController: UIViewController {
                        5,5,5,
                        1,5,4]
             */
-            vc.puzzle=tangram.playfield.solution
+            //vc.puzzle=tangram.playfield.solution
+            vc.tangram=tangram
         case "PuzzleEmbed":
             let vc=segue.destinationViewController as! PuzzleViewController
             /*
@@ -59,8 +60,9 @@ class TangramViewController: UIViewController {
                 5,5,5,
                 1,5,4]
             */
-            vc.puzzle=tangram.playfield.field
-            vc.solution=tangram.playfield.solution
+            vc.tangram=tangram
+            //vc.puzzle=tangram.playfield.field
+            //vc.solution=tangram.playfield.solution
         default: print("Okänd segue: \(segue.identifier)")
         }
     }

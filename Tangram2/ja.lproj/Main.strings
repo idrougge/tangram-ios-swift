@@ -9,7 +9,7 @@
 "Epu-OH-N60.title" = "題名";
 
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Hon-GW-u2l"; */
-"Hon-GW-u2l.normalTitle" = "ボタン";
+"Hon-GW-u2l.normalTitle" = "ゲーム開始";
 
 /* Class = "UIBarButtonItem"; title = "Visa lösning"; ObjectID = "z3o-tb-9Zj"; */
 "z3o-tb-9Zj.title" = "図を見る";
