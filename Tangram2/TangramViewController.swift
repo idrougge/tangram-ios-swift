@@ -15,9 +15,9 @@ class TangramViewController: UIViewController {
     var images:[UIImage]=[]
     var tangram:Tangram=Tangram()
     @IBOutlet weak var gameContainer: UIView!
-    
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
     
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -34,43 +34,30 @@ class TangramViewController: UIViewController {
         let layer:CALayer=CALayer()
         layer.frame=viewSize!
         layer.backgroundColor=UIColor.brownColor().CGColor
-               
+        
+        //tangram.next()
+        //next()
     }
-    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("\(className).prepareForSegue(\(segue.identifier))")
         switch segue.identifier! {
         case "ShowSolution": return
         case "SolutionEmbed":
             let vc=segue.destinationViewController as! SolutionViewController
-            /*
-            vc.puzzle=[4,4,4,
-                       5,5,5,
-                       1,5,4]
-            */
-            //vc.puzzle=tangram.playfield.solution
             vc.tangram=tangram
         case "PuzzleEmbed":
             let vc=segue.destinationViewController as! PuzzleViewController
-            /*
-            vc.puzzle=[4,5,2,
-                5,5,5,
-                1,5,4]
-            vc.solution=[4,4,4,
-                5,5,5,
-                1,5,4]
-            */
             vc.tangram=tangram
-            //vc.puzzle=tangram.playfield.field
-            //vc.solution=tangram.playfield.solution
         default: print("Okänd segue: \(segue.identifier)")
         }
     }
-    
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         print("\(className).viewDidAppear()")
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         print("\(className).viewWillTransitionToSize(\(size))")
@@ -79,16 +66,24 @@ class TangramViewController: UIViewController {
         print("Skärmstorlek: \(screenSize!.width)x\(screenSize!.height)")
         print("Vyns storlek: \(viewSize!.width)x\(viewSize!.height) @ \(viewSize!.origin) max: \(viewSize!.maxX)x\(viewSize!.maxY)")
     }
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func next()
+    {
+        print("\(className).next()")
+        if tangram.next()
+        {
+            if shouldPerformSegueWithIdentifier("PuzzleEmbed", sender: self)
+            {
+                performSegueWithIdentifier("PuzzleEmbed", sender: self)
+            }
+        }
+        else
+        {
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
-    */
-
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /* Vid rotation av enheten anropas följande metoder:
      UIViewController.willRotateToInterfaceOrientation:duration:
      UIViewController.viewWillLayoutSubviews

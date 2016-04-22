@@ -75,7 +75,10 @@ class PuzzleViewController: UIViewController {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func layoutButtons(frame:CGRect)
     {
-        var buttonSize=CGRectMake(frame.origin.x, frame.origin.y, frame.width/3, frame.height/3)
+        print("\(className).layoutButtons(frame: \(frame))")
+        var buttonSize=CGRectMake(frame.origin.x, frame.origin.y,
+            frame.width/CGFloat(tangram!.playfield.rows),
+            frame.height/CGFloat(tangram!.playfield.cols))
         //for i in 0..<tiles.count {
         //var i=0
         for button in tiles{
@@ -122,7 +125,16 @@ class PuzzleViewController: UIViewController {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func goBack()
     {
-        navigationController?.popViewControllerAnimated(true)
+        print("\(className).goBack()")
+        //navigationController?.popViewControllerAnimated(true)
+        //let vc=view.superview?.nextResponder() as! TangramViewController
+        let vc=parentViewController as! TangramViewController
+        self.willMoveToParentViewController(vc)
+        view.removeFromSuperview()
+        self.removeFromParentViewController()
+
+        //print(vc.tangram.next())
+        vc.next()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func buildGraphicsAssets(size: CGRect, tilesPerRow: Int, colour: UIColor) -> [UIImage]
