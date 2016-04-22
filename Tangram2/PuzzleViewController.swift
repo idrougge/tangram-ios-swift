@@ -17,7 +17,8 @@ class PuzzleViewController: UIViewController {
     var tangram:Tangram?
     var puzzle:[Int]=[]
     var solution:[Int]=[]
-    private let tileColour:UIColor=UIColor.redColor()
+    //private let tileColour:UIColor=UIColor.redColor()
+    private let tileColour:UIColor=UIColor.grayColor()
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidLoad() {
@@ -49,6 +50,7 @@ class PuzzleViewController: UIViewController {
                     1,5,4]
         }
         createButtons(self.puzzle)
+        
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func createButtons(fromPuzzle:[Int])
@@ -103,11 +105,17 @@ class PuzzleViewController: UIViewController {
         print("Rutan blev \(sender.tile.text)")
         sender.setImage(images[sender.tile.nr],forState: .Normal)
         if completed() {
+            let title=navigationController?.navigationBar.topItem?.title
             navigationController?.navigationBar.topItem?.title="Du vann!"
-            let alphaView=UIView(frame: screenSize!)
-            alphaView.backgroundColor=UIColor.whiteColor().colorWithAlphaComponent(0.5)
-            view.superview!.superview!.addSubview(alphaView)
-            performSelector("goBack", withObject: nil, afterDelay: 2.0)
+            //let alphaView=UIView(frame: screenSize!)
+            //alphaView.backgroundColor=UIColor.whiteColor().colorWithAlphaComponent(0.5)
+            //view.superview!.superview!.addSubview(alphaView)
+            //performSelector("goBack", withObject: nil, afterDelay: 2.0)
+            let alert=UIAlertController(title: "Grattis!", message: "Du klarade pusslet!", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(_:UIAlertAction) in
+                self.navigationController?.navigationBar.topItem?.title=title
+                self.goBack()}))
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +136,7 @@ class PuzzleViewController: UIViewController {
         print("\(className).goBack()")
         //navigationController?.popViewControllerAnimated(true)
         //let vc=view.superview?.nextResponder() as! TangramViewController
+
         let vc=parentViewController as! TangramViewController
         self.willMoveToParentViewController(vc)
         view.removeFromSuperview()
@@ -142,16 +151,16 @@ class PuzzleViewController: UIViewController {
         var images:[UIImage]=[]
         let tileWidth=size.size.width/CGFloat(tilesPerRow)     // Fan så fult -- ska det vara så här?
         let tileSize=CGRect(origin: CGPointZero, size: CGSize(width: tileWidth, height: tileWidth))
-        images.append(drawRectFilled(false, size: tileSize))
+        images.append(drawRectFilled(false, size: tileSize, colour: colour))
         for i in 1...4
         {
-            images.append(drawTriangleWithAngle(i*90, size: tileSize))
+            images.append(drawTriangleWithAngle(i*90, size: tileSize, colour: colour))
         }
-        images.append(drawRectFilled(true, size: tileSize))
+        images.append(drawRectFilled(true, size: tileSize, colour: colour))
         return images
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    func drawTriangleWithAngle(angle:Int, size:CGRect) -> UIImage
+    func drawTriangleWithAngle(angle:Int, size:CGRect, colour: UIColor) -> UIImage
     {
         UIGraphicsBeginImageContext(size.size)
         let context=UIGraphicsGetCurrentContext()
@@ -170,30 +179,28 @@ class PuzzleViewController: UIViewController {
         }
         let x=size.width-point.x
         let y=size.height-point.y
-        CGContextSetStrokeColorWithColor(context, UIColor.redColor().CGColor)
+        CGContextSetStrokeColorWithColor(context, colour.CGColor)
         CGContextSetLineWidth(context, 2.0)
         CGContextMoveToPoint(context, point.x, point.y)
         CGContextAddLineToPoint(context, point.x, y)
         CGContextMoveToPoint(context, point.x, point.y)
         CGContextAddLineToPoint(context, x, point.y)
         CGContextAddLineToPoint(context, point.x, y)
-        //CGContextStrokePath(context)
-        CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
-        //CGContextFillPath(context)
+        CGContextSetFillColorWithColor(context,colour.CGColor)
         CGContextDrawPath(context, CGPathDrawingMode.Fill)
         let image=UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    func drawRectFilled(filled:Bool, size:CGRect) -> UIImage
+    func drawRectFilled(filled:Bool, size:CGRect, colour: UIColor) -> UIImage
     {
         UIGraphicsBeginImageContext(size.size)
         let context=UIGraphicsGetCurrentContext()
         if filled
         {
             let rect=CGRectMake(size.origin.x, size.origin.y, size.width, size.height)
-            CGContextSetFillColorWithColor(context,UIColor.purpleColor().CGColor)
+            CGContextSetFillColorWithColor(context,colour.CGColor)
             //CGContextSetFillColorWithColor(context,tileColour.CGColor)
             CGContextFillRect(context,rect)
         }

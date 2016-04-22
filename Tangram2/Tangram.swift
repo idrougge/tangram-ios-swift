@@ -25,7 +25,8 @@ class Tangram {
             1,5,5,4,
             0,1,4,0])
         //playfield=PlayField(solution: solution, puzzle: puzzle)
-        playfield=PlayField(solution: solution)
+        //playfield=PlayField(solution: solution)
+        playfield=PlayField(solution: solution, puzzle: puzzle)
         //next()
     }
     func next() -> Bool
