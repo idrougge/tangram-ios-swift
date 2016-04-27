@@ -42,7 +42,9 @@ class TangramViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         print("\(className).prepareForSegue(\(segue.identifier))")
         switch segue.identifier! {
-        case "ShowSolution": return
+        case "ShowSolution":
+            let vc=segue.destinationViewController as! TangramViewController
+            vc.tangram=tangram
         case "SolutionEmbed":
             let vc=segue.destinationViewController as! SolutionViewController
             vc.tangram=tangram
@@ -72,6 +74,7 @@ class TangramViewController: UIViewController {
         print("\(className).next()")
         if tangram.next()
         {
+            
             if shouldPerformSegueWithIdentifier("PuzzleEmbed", sender: self)
             {
                 performSegueWithIdentifier("PuzzleEmbed", sender: self)

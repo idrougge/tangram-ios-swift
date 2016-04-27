@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Tangram2
+
+  Created by Iggy Drougge on 2016-04-18.
+  Copyright © 2016 Iggy Drougge. All rights reserved.
+*/
+"Congratulations"="Grattis!";
+"You solved the puzzle"="Du klarade pusslet!";
+"OK"="OK";
+"You won"="Du vann!";
