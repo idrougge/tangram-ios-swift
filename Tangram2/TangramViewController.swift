@@ -14,7 +14,9 @@ class TangramViewController: UIViewController {
     var viewSize:CGRect?
     var images:[UIImage]=[]
     var tangram:Tangram=Tangram()
+    //var timer:GameTimer=GameTimer(withTime: 5)
     @IBOutlet weak var gameContainer: UIView!
+    @IBOutlet weak var GameButton: UIButton!
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,8 +37,32 @@ class TangramViewController: UIViewController {
         layer.frame=viewSize!
         layer.backgroundColor=UIColor.brownColor().CGColor
         
+        //let timer=GameTimer(withTime: 5)
+        //timer.start()
+        //timer.start(withTarget: self, selector: "tick", finally: "timeout")
+        //performSelector("hej")
+        
         //tangram.next()
         //next()
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func tick(seconds:AnyObject){
+        //print("tick!")
+        //self.navigationController?.navigationBar.topItem?.title=String(timer.seconds)
+        //print(seconds)
+        GameButton.setTitle(String(seconds), forState: .Normal)
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func timeout(){
+        print("Tiden är ute!")
+        let alert=UIAlertController(title: NSLocalizedString("sadnews", comment: "Tyvärr…"),
+            message: NSLocalizedString("timeisout", comment: "Tiden tog slut"),
+            preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "OK"),
+            style: UIAlertActionStyle.Default,
+            handler: {_ in
+                self.navigationController?.popViewControllerAnimated(true)}))
+        presentViewController(alert, animated: true, completion: nil)
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

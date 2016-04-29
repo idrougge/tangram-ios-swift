@@ -16,10 +16,10 @@ class SolutionViewController: PuzzleViewController {
         // Do any additional setup after loading the view.
         print("Detta är SolutionViewController.")
         print("tileColour: \(tileColour)")
-        print("self.puzzle: \(self.puzzle)")
-        print("self.solution: \(self.solution)")
-        print("tangram?.playfield.field: \(tangram?.playfield.field)")
-        print("tangram?.playfield.solution: \(tangram?.playfield.solution)")
+        //print("self.puzzle: \(self.puzzle)")
+        //print("self.solution: \(self.solution)")
+        //print("tangram?.playfield.field: \(tangram?.playfield.field)")
+        //print("tangram?.playfield.solution: \(tangram?.playfield.solution)")
 
         
         guard let _puzzle=tangram?.playfield.solution
@@ -29,11 +29,15 @@ class SolutionViewController: PuzzleViewController {
         createButtons(_puzzle)
         images=buildGraphicsAssets(viewSize!, tilesPerRow: tangram!.playfield.cols, colour: tileColour)
     }
-
+    
     override func buttonWithTile(tile: Tiles, size: CGRect) -> TileButton {
         let button=super.buttonWithTile(tile, size: size)
         button.removeTarget(self, action: "tileWasClicked:", forControlEvents: .TouchUpInside)
         return button
+    }
+    
+    override func additonalSetupAfterViewDidAppear(){
+        //print("Startar INTE timern!")
     }
     
     override func didReceiveMemoryWarning() {

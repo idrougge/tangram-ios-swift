@@ -17,7 +17,8 @@ class PuzzleViewController: UIViewController {
     var tangram:Tangram?
     var puzzle:[Int]=[]
     var solution:[Int]=[]
-    //private let tileColour:UIColor=UIColor.redColor()
+    
+    let timer=GameTimer(withTime: 20)
     private let tileColour:UIColor=UIColor.grayColor()
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,14 +26,9 @@ class PuzzleViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("\(className).viewDidLoad()")
-                print("superview: \(view.superview.dynamicType)")
-                print("superview: \(view.superview?.bounds)")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
-        //print("view.bounds: \(viewSize)")
         viewSize=view.frame
-        //print("view.frame: \(viewSize)")
-        //print("view.bounds: \(view.bounds)")
         
         guard let _puzzle=tangram?.playfield.field, let _solution=tangram?.playfield.solution
             else { fatalError() }
@@ -53,6 +49,7 @@ class PuzzleViewController: UIViewController {
         
         writeScore(2000)
     }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func createButtons(fromPuzzle:[Int])
     {
@@ -106,11 +103,9 @@ class PuzzleViewController: UIViewController {
         //print("Rutan blev \(sender.tile.text)")
         sender.setImage(images[sender.tile.nr],forState: .Normal)
         if completed() {
+            timer.stop()
             let title=navigationController?.navigationBar.topItem?.title
             navigationController?.navigationBar.topItem?.title=NSLocalizedString("You won", comment: "Du vann!")
-            //let alphaView=UIView(frame: screenSize!)
-            //alphaView.backgroundColor=UIColor.whiteColor().colorWithAlphaComponent(0.5)
-            //view.superview!.superview!.addSubview(alphaView)
             //performSelector("goBack", withObject: nil, afterDelay: 2.0)
             let alert=UIAlertController(title: NSLocalizedString("Congratulations", comment: "Grattis"),
                 message: NSLocalizedString("You solved the puzzle", comment: "Du klarade pusslet!"),
@@ -127,27 +122,21 @@ class PuzzleViewController: UIViewController {
     func completed() ->Bool
     {
         for i in 0..<puzzle.count {
-            //print(i)
-            //print("\(tiles[i].tile.nr) <> \(solution[i])")
             if tiles[i].tile.nr != solution[i] { return false }
         }
         return true
-        
-        //return tangram!.playfield.completed()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func goBack()
     {
         print("\(className).goBack()")
         //navigationController?.popViewControllerAnimated(true)
-        //let vc=view.superview?.nextResponder() as! TangramViewController
 
         let vc=parentViewController as! TangramViewController
         self.willMoveToParentViewController(vc)
         view.removeFromSuperview()
         self.removeFromParentViewController()
 
-        //print(vc.tangram.next())
         vc.next()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,10 +144,24 @@ class PuzzleViewController: UIViewController {
     {
         print("\(className).writeScore()")
         let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
-        let file:NSString?
+        //let file:NSString?
+        let file:String
+        var data:NSMutableDictionary
         do {
+            /*
             file = path.stringByAppendingPathComponent("Setting.plist")
-            try "Bög".writeToFile(file as! String, atomically: true, encoding: NSUTF8StringEncoding) }
+            try "Bög".writeToFile(file as! String, atomically: true, encoding: NSUTF8StringEncoding)
+            try "120".writeToFile(file as! String, atomically: true, encoding: NSUTF8StringEncoding)
+            */
+            file=path.stringByAppendingPathComponent("Score.plist")
+            //data=NSMutableDictionary(contentsOfFile: file)!
+            data=NSMutableDictionary()
+            data.setObject(120, forKey: "Highscore")
+            data.writeToFile(file, atomically: true)
+            var bla:NSMutableDictionary=NSMutableDictionary(contentsOfFile: file)!
+            print("Filens innehåll: \(file)")
+            print("Highscore: \(bla.valueForKey("Highscore"))")
+        }
         catch
         {
             print("Filhanteringsfel: Kunde inte skriva till filen")
@@ -238,27 +241,12 @@ class PuzzleViewController: UIViewController {
         return image
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        print("\(className).prepareForSegue(\(segue.identifier))")
-        if segue.identifier=="ShowSolution"
-        {
-            if let vc=segue.destinationViewController as? SolutionViewController
-            {
-                vc.puzzle=[4,4,4,
-                    5,5,5,
-                    1,5,4]
-            }
-        }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("\(className).viewWillAppear()")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
         print("Vyns storlek: \(viewSize!.width)x\(viewSize!.height) @ \(viewSize!.origin) max: \(viewSize!.maxX)x\(viewSize!.maxY)")
-        print("self.puzzle: \(self.puzzle)")
-        print("self.solution: \(self.solution)")
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillLayoutSubviews() {
@@ -267,23 +255,35 @@ class PuzzleViewController: UIViewController {
         viewSize=view.bounds                         // Hämta vyns storlek
         print("Vyns storlek: \(viewSize!.width)x\(viewSize!.height) @ \(viewSize!.origin) max: \(viewSize!.maxX)x\(viewSize!.maxY)")
         layoutButtons(viewSize!)
-        print("self.puzzle: \(self.puzzle)")
-        print("self.solution: \(self.solution)")
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         print("\(className).viewDidLayoutSubViews()")
-        print("self.puzzle: \(self.puzzle)")
-        print("self.solution: \(self.solution)")
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         print("\(className).viewDidAppear()")
-        print("self.puzzle: \(self.puzzle)")
-        print("self.solution: \(self.solution)")
+        
+        additonalSetupAfterViewDidAppear()
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func additonalSetupAfterViewDidAppear() {
+        if !timer.isRunning && timer.seconds>0 {
+            timer.start(withTarget: parentViewController!, selector: "tick:", finally: "timeout")
+        }
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("\(className).viewWillDisappear()")
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("\(className).viewDidDisappear()")
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

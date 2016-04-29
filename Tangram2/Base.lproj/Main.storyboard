@@ -124,6 +124,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="GameButton" destination="1Qc-9b-Hop" id="aN7-bs-s8b"/>
                         <outlet property="gameContainer" destination="gbQ-Hq-8KL" id="Vc3-yf-eQr"/>
                     </connections>
                 </viewController>
