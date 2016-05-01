@@ -49,8 +49,6 @@ class PuzzleViewController: UIViewController {
                     1,5,4]
         }
         createButtons(self.puzzle)
-        
-        writeScore(2000)
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,7 +103,6 @@ class PuzzleViewController: UIViewController {
         print("tileWasClicked: highscore=\(highscore)")
         highscore=2100
                 print("tileWasClicked: highscore=\(highscore)")
-        readPuzzleFromFile(2)
         
         sender.tile=sender.tile.next()
         //print("Rutan blev \(sender.tile.text)")
@@ -160,123 +157,6 @@ class PuzzleViewController: UIViewController {
             scoredict.setValue(newValue, forKey: "Highscore")
             scoredict.writeToFile(file, atomically: true)
         }
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    func readPuzzleFromFile(nrToLoad:Int)
-    {
-        guard let fh=NSBundle.mainBundle().pathForResource("puzzles", ofType: "txt")
-            else{print("Kunde inte öppna pusselfilen!");return}
-        print("readPuzzle: bundle=\(fh)")
-        var nextPuzzle:[Int]=[]
-        var allPuzzles:String=""
-        do{
-            try allPuzzles=String(contentsOfFile: fh)
-            print("Pusselfilens innehåll:\n\(allPuzzles)")
-        }
-        catch{
-            print("Kunde inte läsa pusselfilen!")
-        }
-        var puzmap=allPuzzles.characters.filter({Int(String($0)) != nil}).map({Int(String($0))!})
-        print("puzmap=\(puzmap)")
-        //let nrToLoad=2
-        var puznr=0
-        //repeat{
-        while puznr<nrToLoad
-        {
-            if puzmap.isEmpty {print("Listan är tom!");return}
-            let size=puzmap.removeFirst()
-            print("size=\(size)")
-            if puzmap.count<size*size
-            {
-                print("Bara \(puzmap.count) siffror kvar!")
-                return
-            }
-            puzmap.removeFirst(size*size)
-            puznr++
-        }
-        if puzmap.isEmpty {print("Listan är tom!");return}
-        let size=puzmap.removeFirst()
-        print("size=\(size)")
-        if puzmap.count<size*size
-        {
-            print("Bara \(puzmap.count) siffror kvar!")
-            return
-        }
-        for i in 0..<size*size
-        {
-            nextPuzzle.append(puzmap[i])
-        }
-        print("nextPuzzle: \(nextPuzzle)")
-        //while puznr<nrToLoad
-        /*
-        let lines=allPuzzles.componentsSeparatedByString("\n")
-        print("lines: \(lines)")
-        guard let linesToRead=Int(lines[0])
-            else{print("Ogiltigt tal: \(lines[0])");return}
-        print("linesToRead: \(linesToRead)")
-        for lineNr in 1...linesToRead
-        {
-            print("lineNr \(lineNr): \(lines[lineNr])")
-            let charArray=[Character](lines[lineNr].characters)
-            print("charArray=\(charArray)")
-            for i in 0..<charArray.count
-            {
-                //nextPuzzle.append(Int(charArray[i]))
-            }
-            let puzmap=lines[lineNr].characters.filter({Int(String($0)) != nil}).map({Int(String($0))!})
-            print("puzmap=\(puzmap)")
-        }
-        */
-    }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    func writeScore(score:Int)
-    {
-        print("\(className).writeScore()")
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
-        //let file:NSString?
-        let file:String
-        var data:NSMutableDictionary
-        do {
-            /*
-            file = path.stringByAppendingPathComponent("Setting.plist")
-            try "Bög".writeToFile(file as! String, atomically: true, encoding: NSUTF8StringEncoding)
-            try "120".writeToFile(file as! String, atomically: true, encoding: NSUTF8StringEncoding)
-            */
-            file=path.stringByAppendingPathComponent("Score.plist")
-            //data=NSMutableDictionary(contentsOfFile: file)!
-            data=NSMutableDictionary()
-            data.setObject(120, forKey: "Highscore")
-            data.writeToFile(file, atomically: true)
-            let bla:NSMutableDictionary=NSMutableDictionary(contentsOfFile: file)!
-            print("Filens innehåll: \(file)")
-            print("Highscore: \(bla.valueForKey("Highscore"))")
-        }
-        /*
-        var gurka:NSString="test"
-        do {
-            try gurka=NSString(contentsOfFile: file as! String, encoding: NSUTF8StringEncoding)
-        }
-        catch
-        {
-            print("Filhanteringsfel: Kunde inte öppna filen")
-        }
-        print("Filens innehåll: \(gurka)")
-        */
-        var input:NSString
-        do{
-            try input=NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding)
-            print("input: \(input)")
-        }
-        catch
-        {
-            print("Filhanteringsfel: Kunde inte läsa filen")
-        }
-        guard let inuit=NSDictionary(contentsOfFile: file)
-        else{
-            print("Filhanteringsfel: Kunde inte läsa filen")
-            return
-        }
-        print("inuit: \(inuit)")
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func buildGraphicsAssets(size: CGRect, tilesPerRow: Int, colour: UIColor) -> [UIImage]
