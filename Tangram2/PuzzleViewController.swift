@@ -31,23 +31,14 @@ class PuzzleViewController: UIViewController {
         print("\(className).viewDidLoad()")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
-        viewSize=view.frame
+        viewSize=view.frame                          //       --''--
         
         guard let _puzzle=tangram?.playfield.field, let _solution=tangram?.playfield.solution
             else { fatalError() }
         self.puzzle=_puzzle
         self.solution=_solution
-        print("\(className): self.puzzle: \(self.puzzle)")
-        print("\(className): self.solution: \(self.solution)")
         
         images=buildGraphicsAssets(viewSize!, tilesPerRow: tangram!.playfield.cols, colour: tileColour)
-        if puzzle.isEmpty
-        {
-            print("Pusslet är tomt.")
-            self.puzzle=[4,5,3,
-                    5,5,5,
-                    1,5,4]
-        }
         createButtons(self.puzzle)
     }
 
@@ -65,8 +56,6 @@ class PuzzleViewController: UIViewController {
     func buttonWithTile(tile: Tiles, size: CGRect) -> TileButton
     {
         let button:TileButton=TileButton(withFrame: size, tile: tile)
-        //button.setTitle("Hej", forState: .Normal)
-        //button.setTitle("Nej", forState: UIControlState.Highlighted)
         button.setImage(images[tile.nr], forState: .Normal)
         button.setTitleColor(UIColor.blueColor(), forState: .Normal)
         button.tintColor=tileColour
@@ -80,13 +69,9 @@ class PuzzleViewController: UIViewController {
         var buttonSize=CGRectMake(frame.origin.x, frame.origin.y,
             frame.width/CGFloat(tangram!.playfield.rows),
             frame.height/CGFloat(tangram!.playfield.cols))
-        //for i in 0..<tiles.count {
-        //var i=0
         for button in tiles{
             button.frame=buttonSize
-            //print("Ruta nr \(i++): \(button.tile.text)")
             view.addSubview(button)
-            //print("button.frame: \(button.frame)")
             buttonSize=CGRectMake(buttonSize.origin.x+buttonSize.width, buttonSize.origin.y,
                 buttonSize.width, buttonSize.height)
             if buttonSize.origin.x>=viewSize!.width
@@ -99,19 +84,12 @@ class PuzzleViewController: UIViewController {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func tileWasClicked(sender: TileButton!)
     {
-        //print("Du klickade på en knapp med ruta \(sender.tile.text)")
-        print("tileWasClicked: highscore=\(highscore)")
-        highscore=2100
-                print("tileWasClicked: highscore=\(highscore)")
-        
         sender.tile=sender.tile.next()
-        //print("Rutan blev \(sender.tile.text)")
         sender.setImage(images[sender.tile.nr],forState: .Normal)
         if completed() {
             timer.stop()
             let title=navigationController?.navigationBar.topItem?.title
             navigationController?.navigationBar.topItem?.title=NSLocalizedString("You won", comment: "Du vann!")
-            //performSelector("goBack", withObject: nil, afterDelay: 2.0)
             let alert=UIAlertController(title: NSLocalizedString("Congratulations", comment: "Grattis"),
                 message: NSLocalizedString("You solved the puzzle", comment: "Du klarade pusslet!"),
                 preferredStyle: UIAlertControllerStyle.Alert)
@@ -128,6 +106,11 @@ class PuzzleViewController: UIViewController {
     {
         for i in 0..<puzzle.count {
             if tiles[i].tile.nr != solution[i] { return false }
+        }
+        let currentScore=timer.seconds
+        if currentScore>highscore {
+            print("Nytt highscore: \(currentScore) > \(highscore)")
+            highscore=currentScore
         }
         return true
     }

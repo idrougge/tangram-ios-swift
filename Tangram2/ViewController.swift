@@ -16,9 +16,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("\(className).viewDidLoad()")
         
-        //let vc=TangramViewController()
-        //showViewController(vc, sender: view)
-        
         performSegueWithIdentifier("ShowGame", sender: view)
         
     }

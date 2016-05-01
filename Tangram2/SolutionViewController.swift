@@ -14,13 +14,6 @@ class SolutionViewController: PuzzleViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("Detta är SolutionViewController.")
-        print("tileColour: \(tileColour)")
-        //print("self.puzzle: \(self.puzzle)")
-        //print("self.solution: \(self.solution)")
-        //print("tangram?.playfield.field: \(tangram?.playfield.field)")
-        //print("tangram?.playfield.solution: \(tangram?.playfield.solution)")
-
         
         guard let _puzzle=tangram?.playfield.solution
             else { fatalError() }
@@ -37,7 +30,7 @@ class SolutionViewController: PuzzleViewController {
     }
     
     override func additonalSetupAfterViewDidAppear(){
-        //print("Startar INTE timern!")
+        //Startar INTE timern!
     }
     
     override func didReceiveMemoryWarning() {

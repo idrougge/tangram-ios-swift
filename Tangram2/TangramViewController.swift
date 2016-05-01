@@ -26,30 +26,10 @@ class TangramViewController: UIViewController {
         print("\(className).viewDidLoad()")
         screenSize=UIScreen.mainScreen().bounds      // Hämta skärmstorlek
         viewSize=view.bounds                         // Hämta vyns storlek
-        print("view.bounds: \(viewSize)")
         viewSize=view.frame
-        print("view.frame: \(viewSize)")
-        //viewSize=gameContainer.frame
-        print("container.frame: \(viewSize)")
-        //print("container.frame.size: \(gameContainer.frame.size)")
-        
-        let layer:CALayer=CALayer()
-        layer.frame=viewSize!
-        layer.backgroundColor=UIColor.brownColor().CGColor
-        
-        //let timer=GameTimer(withTime: 5)
-        //timer.start()
-        //timer.start(withTarget: self, selector: "tick", finally: "timeout")
-        //performSelector("hej")
-        
-        //tangram.next()
-        //next()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func tick(seconds:AnyObject){
-        //print("tick!")
-        //self.navigationController?.navigationBar.topItem?.title=String(timer.seconds)
-        //print(seconds)
         GameButton.setTitle(String(seconds), forState: .Normal)
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////

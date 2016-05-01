@@ -10,7 +10,7 @@ import Foundation
 
 class Tangram {
     var playfield:PlayField
-    var solutions:[[Int]]=[]
+    var score=0
     var puzzleNr=0
     init()
     {
@@ -20,13 +20,6 @@ class Tangram {
         let solution=[2,5,3,
                       5,5,5,
                       1,5,4]
-        solutions.append(solution)
-        solutions.append([0,2,3,0,
-            2,5,5,3,
-            1,5,5,4,
-            0,1,4,0])
-        //playfield=PlayField(solution: solution, puzzle: puzzle)
-        //playfield=PlayField(solution: solution)
         playfield=PlayField(solution: solution, puzzle: puzzle)
         next()
     }

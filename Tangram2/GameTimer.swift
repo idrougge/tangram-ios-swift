@@ -20,7 +20,6 @@ import Foundation
 
 class GameTimer:NSObject {
     
-    //private var timer:NSDate//=NSDate()
     private var timer:NSTimer
     var seconds:Int
     var isRunning:Bool=false
@@ -29,18 +28,14 @@ class GameTimer:NSObject {
     private var finalCall:Selector=""
     
     init(withTime time:Int){
-        //timer=NSDate()
         timer=NSTimer()//.scheduledTimerWithTimeInterval(1.0, target: self, selector: "tick:", userInfo: nil, repeats: true)
         seconds=time
     }
     
     func start(){
-        //timer = NSDate()
-        //NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "tick:", userInfo: nil, repeats: true)
         start(withTarget: self, selector: "dummy:", finally: "dummy:")
     }
     func start(withTarget target:AnyObject, selector:Selector, finally:Selector){
-        //timer=NSTimer.scheduledTimerWithTimeInterval(1.0, target: target, selector: selector, userInfo: nil, repeats: true)
         timer=NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "tick:", userInfo: nil, repeats: true)
         self.target=target
         self.selector=selector
@@ -50,8 +45,6 @@ class GameTimer:NSObject {
     }
     func tick(argtimer: NSTimer){
         seconds-=1
-        //print("Sekunder kvar: \(seconds)")
-        //target!.performSelector(selector)
         target?.performSelector(selector, withObject: seconds)
         if seconds<=0
         {
