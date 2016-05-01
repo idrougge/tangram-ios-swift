@@ -50,7 +50,7 @@ class GameTimer:NSObject {
     }
     func tick(argtimer: NSTimer){
         seconds-=1
-        print("Sekunder kvar: \(seconds)")
+        //print("Sekunder kvar: \(seconds)")
         //target!.performSelector(selector)
         target?.performSelector(selector, withObject: seconds)
         if seconds<=0

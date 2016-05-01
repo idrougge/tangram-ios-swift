@@ -18,6 +18,7 @@
 		DC98E79A1CC8277B006C5BE0 /* GameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC98E7991CC8277B006C5BE0 /* GameTimer.swift */; };
 		DC98E79B1CCA2C96006C5BE0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DC98E79D1CCA2C96006C5BE0 /* Localizable.strings */; };
 		DC98E7A01CD2FD06006C5BE0 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC98E79F1CD2FD05006C5BE0 /* Media.xcassets */; };
+		DC98E7A21CD34C68006C5BE0 /* puzzles.txt in Resources */ = {isa = PBXBuildFile; fileRef = DC98E7A11CD34C67006C5BE0 /* puzzles.txt */; };
 		DCD050E91CBC11FE003A5837 /* TileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050E81CBC11FE003A5837 /* TileButton.swift */; };
 		DCD050EB1CBE5F8C003A5837 /* TangramViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */; };
 		DCD0510F1CC1086C003A5837 /* PuzzleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */; };
@@ -43,6 +44,7 @@
 		DC98E79C1CCA2C96006C5BE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC98E79E1CCA2C99006C5BE0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DC98E79F1CD2FD05006C5BE0 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		DC98E7A11CD34C67006C5BE0 /* puzzles.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = puzzles.txt; sourceTree = "<group>"; };
 		DCD050E81CBC11FE003A5837 /* TileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileButton.swift; sourceTree = "<group>"; };
 		DCD050EA1CBE5F8C003A5837 /* TangramViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TangramViewController.swift; sourceTree = "<group>"; };
 		DCD0510E1CC1086C003A5837 /* PuzzleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				DC3793CD1CB7DB990088EF5F /* Assets.xcassets */,
 				DC3793CF1CB7DB990088EF5F /* LaunchScreen.storyboard */,
 				DC3793D21CB7DB990088EF5F /* Info.plist */,
+				DC98E7A11CD34C67006C5BE0 /* puzzles.txt */,
 			);
 			path = Tangram2;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC98E7A21CD34C68006C5BE0 /* puzzles.txt in Resources */,
 				DC98E7A01CD2FD06006C5BE0 /* Media.xcassets in Resources */,
 				DC3793D11CB7DB990088EF5F /* LaunchScreen.storyboard in Resources */,
 				DC98E79B1CCA2C96006C5BE0 /* Localizable.strings in Resources */,

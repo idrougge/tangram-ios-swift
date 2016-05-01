@@ -18,7 +18,10 @@ class PuzzleViewController: UIViewController {
     var puzzle:[Int]=[]
     var solution:[Int]=[]
     
-    let timer=GameTimer(withTime: 20)
+    static let path:NSString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as NSString
+    let file:String=path.stringByAppendingPathComponent("Score.plist")
+    
+    let timer=GameTimer(withTime: 60)
     private let tileColour:UIColor=UIColor.grayColor()
     lazy var className=String(self.dynamicType).componentsSeparatedByString(" ").last!
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -99,6 +102,11 @@ class PuzzleViewController: UIViewController {
     func tileWasClicked(sender: TileButton!)
     {
         //print("Du klickade på en knapp med ruta \(sender.tile.text)")
+        print("tileWasClicked: highscore=\(highscore)")
+        highscore=2100
+                print("tileWasClicked: highscore=\(highscore)")
+        readPuzzleFromFile()
+        
         sender.tile=sender.tile.next()
         //print("Rutan blev \(sender.tile.text)")
         sender.setImage(images[sender.tile.nr],forState: .Normal)
@@ -140,6 +148,38 @@ class PuzzleViewController: UIViewController {
         vc.next()
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    var highscore:Int{
+        get{
+            guard let scoredict=NSDictionary(contentsOfFile: file)
+                else{return 0}
+            return scoredict.valueForKey("Highscore") as! Int
+        }
+        set{
+            guard let scoredict=NSDictionary(contentsOfFile: file)
+                else{print("Kunde inte öppna poänglistan för skrivning");return}
+            scoredict.setValue(newValue, forKey: "Highscore")
+            scoredict.writeToFile(file, atomically: true)
+        }
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    func readPuzzleFromFile()
+    {
+        guard let fh=NSBundle.mainBundle().pathForResource("puzzles", ofType: "txt")
+            else{print("Kunde inte öppna pusselfilen!");return}
+        print("readPuzzle: bundle=\(fh)")
+        //var nextPuzzle:[Int]
+        var line:String=""
+        do{
+            try line=String(contentsOfFile: fh)
+            print("Pusselfilens innehåll:\n\(line)")
+        }
+        catch{
+            print("Kunde inte läsa pusselfilen!")
+        }
+        let lines=line.componentsSeparatedByString("\n")
+        print("lines: \(lines)")
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func writeScore(score:Int)
     {
         print("\(className).writeScore()")
@@ -158,14 +198,11 @@ class PuzzleViewController: UIViewController {
             data=NSMutableDictionary()
             data.setObject(120, forKey: "Highscore")
             data.writeToFile(file, atomically: true)
-            var bla:NSMutableDictionary=NSMutableDictionary(contentsOfFile: file)!
+            let bla:NSMutableDictionary=NSMutableDictionary(contentsOfFile: file)!
             print("Filens innehåll: \(file)")
             print("Highscore: \(bla.valueForKey("Highscore"))")
         }
-        catch
-        {
-            print("Filhanteringsfel: Kunde inte skriva till filen")
-        }
+        /*
         var gurka:NSString="test"
         do {
             try gurka=NSString(contentsOfFile: file as! String, encoding: NSUTF8StringEncoding)
@@ -175,7 +212,22 @@ class PuzzleViewController: UIViewController {
             print("Filhanteringsfel: Kunde inte öppna filen")
         }
         print("Filens innehåll: \(gurka)")
-
+        */
+        var input:NSString
+        do{
+            try input=NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding)
+            print("input: \(input)")
+        }
+        catch
+        {
+            print("Filhanteringsfel: Kunde inte läsa filen")
+        }
+        guard let inuit=NSDictionary(contentsOfFile: file)
+        else{
+            print("Filhanteringsfel: Kunde inte läsa filen")
+            return
+        }
+        print("inuit: \(inuit)")
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     func buildGraphicsAssets(size: CGRect, tilesPerRow: Int, colour: UIColor) -> [UIImage]
